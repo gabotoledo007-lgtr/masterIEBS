@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lleida.net — Comunicaciones digitales certificadas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ====================================================================
+     GOOGLE ANALYTICS 4 — INSTALACIÓN DIRECTA (SIN GOOGLE TAG MANAGER)
+     ==================================================================== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VZS6SW67BF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VZS6SW67BF');
+  // Mientras valides eventos en DebugView puedes añadir aquí: , { 'debug_mode': true }
+</script>
+<!-- ====================== FIN BLOQUE GA4 ============================ -->
+
+<style>
+  :root{
+    --blue:#2554EC;
+    --blue-dark:#1B3FBE;
+    --blue-soft:#EEF2FF;
+    --ink:#14161B;
+    --gray:#5B6472;
+    --line:#E6E8EC;
+    --bg:#FFFFFF;
+    --bg-soft:#F6F7FB;
+    --bar-dark:#14161B;
+    --teal:#1FB6A6;
+    --amber:#F2A33C;
+    --coral:#E2483D;
+    --ok:#1F9D55;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:'Manrope',sans-serif;}
+
+  /* ---------- top bar ---------- */
+  .topbar{background:var(--bar-dark);color:#fff;font-size:.84rem;}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:42px;}
+  .topbar .left{display:flex;align-items:center;gap:8px;color:#D7D9DE;}
+  .topbar .left a{color:#fff;text-decoration:underline;}
+  .topbar .right{display:flex;align-items:center;gap:18px;color:#9AA0AC;}
+  @media (max-width:680px){.topbar .left span.hide-sm{display:none;}}
+
+  /* ---------- header ---------- */
+  header.main{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  header.main .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-dot{width:24px;height:24px;border-radius:50%;background:conic-gradient(var(--blue) 0% 25%, var(--teal) 25% 50%, var(--amber) 50% 75%, var(--coral) 75% 100%);}
+  .brand-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.18rem;color:var(--ink);}
+  nav{display:flex;align-items:center;gap:30px;}
+  nav a.navlink{font-size:.93rem;color:var(--gray);font-weight:600;}
+  nav a.navlink:hover{color:var(--ink);}
+  .nav-ctas{display:flex;align-items:center;gap:10px;}
+  @media (max-width:760px){nav .navlinks{display:none;}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font-weight:700;font-size:.92rem;cursor:pointer;border:1.5px solid transparent;white-space:nowrap;}
+  .btn-solid{background:var(--blue);color:#fff;}
+  .btn-solid:hover{background:var(--blue-dark);}
+  .btn-outline{background:#fff;color:var(--blue);border-color:var(--blue);}
+  .btn-outline:hover{background:var(--blue-soft);}
+  .btn-block{width:100%;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 56px;background:linear-gradient(180deg,#fff 0%, var(--bg-soft) 100%);}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:16px;}
+  h1{font-weight:800;font-size:clamp(2.1rem,4vw,3rem);line-height:1.14;letter-spacing:-.01em;color:var(--ink);margin-bottom:18px;}
+  .lede{font-size:1.06rem;color:var(--gray);max-width:46ch;margin-bottom:28px;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;}
+  .perks{display:flex;gap:24px;flex-wrap:wrap;}
+  .perk{display:flex;align-items:center;gap:8px;font-size:.86rem;color:var(--gray);font-weight:600;}
+  .perk svg{flex-shrink:0;}
+
+  /* hero visual: flujo abstracto, sin imágenes */
+  .hero-visual{position:relative;background:var(--bg-soft);border:1px solid var(--line);border-radius:18px;padding:38px 22px;min-height:300px;display:flex;flex-direction:column;justify-content:center;gap:18px;}
+  .flow{display:flex;align-items:center;}
+  .flow-step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 14px;font-size:.84rem;font-weight:700;color:var(--ink);text-align:center;flex:1;box-shadow:0 1px 0 rgba(20,22,27,.03);}
+  .flow-num{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.74rem;margin:0 auto 8px;}
+  .flow-arrow{flex:.5;text-align:center;color:var(--blue);opacity:.55;font-size:1.1rem;letter-spacing:-2px;}
+  .chip{position:absolute;top:24px;right:24px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;box-shadow:0 6px 16px rgba(20,22,27,.08);}
+  .badge-legal{position:absolute;bottom:24px;left:24px;background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px;display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;}
+
+  /* ---------- divider heading ---------- */
+  .divider-heading{padding:54px 0 10px;text-align:center;}
+  .divider-heading h2{font-size:clamp(1.5rem,2.6vw,2rem);color:var(--ink);}
+
+  /* ---------- section common ---------- */
+  section{padding:56px 0;}
+  .section-head{max-width:60ch;margin:0 auto 38px;text-align:center;}
+  .kicker{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px;}
+  h2{font-weight:800;font-size:clamp(1.55rem,2.4vw,1.9rem);margin-bottom:12px;color:var(--ink);}
+  .section-head p{color:var(--gray);font-size:1rem;}
+
+  /* ---------- servicios cards ---------- */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media (max-width:880px){.cards{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.cards{grid-template-columns:1fr;}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 22px;}
+  .card .icon{width:38px;height:38px;border-radius:10px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+  .card h3{font-size:1.02rem;font-weight:700;margin-bottom:8px;font-family:'Manrope',sans-serif;}
+  .card p{font-size:.9rem;color:var(--gray);}
+
+  /* ---------- validez (dark) ---------- */
+  .validez{background:var(--bar-dark);color:#EDEEF1;}
+  .validez .section-head{text-align:left;margin:0 0 36px;max-width:62ch;}
+  .validez .section-head p{color:#A9AFBC;}
+  .validez .kicker{color:#8FA8FF;}
+  .check-list{display:grid;gap:18px;max-width:64ch;}
+  .check-item{display:flex;gap:14px;align-items:flex-start;}
+  .check-item svg{flex-shrink:0;margin-top:3px;}
+  .check-item p{font-size:.97rem;color:#CBD0DA;}
+  .check-item strong{color:#fff;}
+
+  /* ---------- precios / bonos ---------- */
+  .precios{background:var(--bg-soft);}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:880px){.price-grid{grid-template-columns:1fr;}}
+  .price-card{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:30px 26px;position:relative;}
+  .price-card.featured{border-color:var(--blue);box-shadow:0 10px 28px rgba(37,84,236,.12);}
+  .price-tag{position:absolute;top:-12px;right:24px;background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:999px;}
+  .price-card h3{font-family:'Manrope',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:6px;}
+  .price-credits{color:var(--gray);font-size:.88rem;margin-bottom:18px;}
+  .price-amount{font-family:'Manrope',sans-serif;font-size:2.1rem;font-weight:800;margin-bottom:18px;}
+  .price-amount span{font-size:.95rem;font-weight:600;color:var(--gray);}
+  .price-card ul{list-style:none;display:grid;gap:9px;margin-bottom:22px;}
+  .price-card li{font-size:.86rem;color:var(--gray);display:flex;gap:9px;align-items:center;}
+  .price-card li::before{content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;flex-shrink:0;}
+
+  /* ---------- checkout (oculto hasta seleccionar bono) ---------- */
+  #checkout{display:none;margin-top:34px;}
+  .checkout-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;max-width:640px;margin:0 auto;}
+  .checkout-summary{background:var(--blue-soft);border-radius:10px;padding:14px 16px;font-size:.92rem;font-weight:700;color:var(--blue-dark);margin-bottom:22px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:520px){.field-row{grid-template-columns:1fr;}}
+  .field{margin-bottom:16px;}
+  label{display:block;font-size:.82rem;font-weight:700;margin-bottom:6px;color:var(--ink);}
+  input, select, textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-family:'Inter',sans-serif;font-size:.95rem;background:#fff;color:var(--ink);}
+  input:focus, select:focus, textarea:focus{outline:2px solid var(--blue);outline-offset:1px;}
+  .legal-note{font-size:.78rem;color:var(--gray);margin-top:12px;}
+
+  /* ---------- contacto ---------- */
+  .contacto{background:#fff;border-top:1px solid var(--line);}
+  .demo-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;}
+  @media (max-width:880px){.demo-grid{grid-template-columns:1fr;}}
+  .demo-copy h2{margin-bottom:16px;}
+  .demo-copy p{color:var(--gray);margin-bottom:22px;max-width:42ch;}
+  .demo-copy ul{list-style:none;display:grid;gap:10px;}
+  .demo-copy li{font-size:.92rem;color:var(--gray);display:flex;gap:10px;align-items:center;}
+  .demo-copy li::before{content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;flex-shrink:0;}
+  form{background:var(--bg-soft);border:1px solid var(--line);padding:28px;border-radius:14px;}
+
+  .confirm{display:none;text-align:center;padding:34px 10px;}
+  .confirm svg{margin-bottom:14px;}
+  .confirm h3{font-family:'Manrope',sans-serif;font-size:1.25rem;margin-bottom:8px;}
+  .confirm p{color:var(--gray);font-size:.95rem;}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:28px 0;}
+  footer .wrap{display:flex;flex-direction:column;gap:6px;}
+  footer p{font-size:.8rem;color:var(--gray);}
+  footer .disclaimer{color:#9aa1ab;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="left">🔔 <span class="hide-sm">Disponible ahora:</span> firma electrónica vía API — <a href="#servicios">más información</a></div>
+    <div class="right"><span>ES</span><span>Área de cliente</span></div>
+  </div>
+</div>
+
+<header class="main">
+  <div class="wrap">
+    <div class="brand"><span class="brand-dot"></span><span class="brand-name">Lleida.net</span></div>
+    <nav>
+      <div class="navlinks" style="display:flex;gap:30px;margin-right:30px;">
+        <a class="navlink" href="#servicios">Servicios</a>
+        <a class="navlink" href="#precios">Precios</a>
+        <a class="navlink" href="#validez">Validez legal</a>
+      </div>
+      <div class="nav-ctas">
+        <a class="btn btn-outline js-cta" data-type="contacto" data-loc="header" href="#contacto">Contáctanos</a>
+        <a class="btn btn-solid js-cta" data-type="comprar" data-loc="header" href="#precios">Comprar</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Comunicaciones digitales certificadas</div>
+      <h1>Firma, notifica y verifica con la misma validez que el papel.</h1>
+      <p class="lede">Burofax, email certificado, firma electrónica y verificación de identidad (eKYC) desde una sola cuenta. Compra créditos y empieza a usarlos hoy, o pide que te asesoremos primero.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid js-cta" data-type="comprar" data-loc="hero" href="#precios">Empieza ahora</a>
+        <a class="btn btn-outline js-cta" data-type="contacto" data-loc="hero" href="#contacto">Solicita información</a>
+      </div>
+      <div class="perks">
+        <div class="perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2554EC" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Paga solo por lo que consumes</div>
+        <div class="perk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2554EC" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Una única cuenta para todos los servicios</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="chip">✅ Documento verificado</div>
+      <div class="flow">
+        <div class="flow-step"><div class="flow-num">1</div>Solicitud</div>
+        <div class="flow-arrow">┄┄➤</div>
+        <div class="flow-step"><div class="flow-num">2</div>Firma electrónica</div>
+        <div class="flow-arrow">┄┄➤</div>
+        <div class="flow-step"><div class="flow-num">3</div>Verificado</div>
+      </div>
+      <div class="badge-legal">🔒 Validez legal</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-heading"><h2>¿Qué quieres gestionar hoy?</h2></div>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="cards">
+      <div class="card">
+        <div class="icon">📨</div>
+        <h3>Burofax certificado</h3>
+        <p>Notificaciones con acuse de recibo y contenido certificado, sin desplazamientos ni colas.</p>
+      </div>
+      <div class="card">
+        <div class="icon">✉️</div>
+        <h3>Email certificado</h3>
+        <p>Evidencia de envío, entrega y contenido de cada comunicación electrónica relevante.</p>
+      </div>
+      <div class="card">
+        <div class="icon">✍️</div>
+        <h3>Firma electrónica</h3>
+        <p>Firma de contratos y documentos con validez legal, integrable en tus flujos actuales.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🪪</div>
+        <h3>Verificación eKYC</h3>
+        <p>Identificación de clientes a distancia, alineada con los requisitos normativos del sector.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="validez" class="validez">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Por qué importa</div>
+      <h2>Pensado para quien firma la responsabilidad, no solo el envío</h2>
+      <p>Quien aprueba estas herramientas no busca "otra plataforma de comunicaciones": busca poder demostrar, ante un cliente, un proveedor o un organismo, que algo concreto ocurrió.</p>
+    </div>
+    <div class="check-list">
+      <div class="check-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8FA8FF" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        <p><strong>Trazabilidad completa.</strong> Cada envío queda registrado con fecha, contenido y destinatario verificables.</p>
+      </div>
+      <div class="check-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8FA8FF" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        <p><strong>Integración sin fricción.</strong> Se conecta con los procesos de operaciones y RRHH ya existentes.</p>
+      </div>
+      <div class="check-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8FA8FF" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        <p><strong>Respaldo regulatorio.</strong> Operamos bajo supervisión normativa, no como un servicio de mensajería genérico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="precios" class="precios">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Compra directa</div>
+      <h2>Bonos de créditos, sin permanencia</h2>
+      <p>Cada envío, firma o verificación consume créditos de tu bono. Compra ahora y empieza a usarlos en el momento.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <div class="price-credits">100 créditos</div>
+        <div class="price-amount">49€</div>
+        <ul>
+          <li>Válido 12 meses</li>
+          <li>Soporte estándar</li>
+          <li>Todos los servicios</li>
+        </ul>
+        <button class="btn btn-solid btn-block js-pack" data-pack="Starter" data-price="49" data-credits="100">Comprar este bono</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tag">Más demandado</div>
+        <h3>Business</h3>
+        <div class="price-credits">500 créditos</div>
+        <div class="price-amount">199€</div>
+        <ul>
+          <li>Válido 12 meses</li>
+          <li>Soporte prioritario</li>
+          <li>Todos los servicios</li>
+          <li>Acceso a API</li>
+        </ul>
+        <button class="btn btn-solid btn-block js-pack" data-pack="Business" data-price="199" data-credits="500">Comprar este bono</button>
+      </div>
+      <div class="price-card">
+        <h3>Enterprise</h3>
+        <div class="price-credits">2.000 créditos</div>
+        <div class="price-amount">699€</div>
+        <ul>
+          <li>Válido 12 meses</li>
+          <li>Gestor de cuenta dedicado</li>
+          <li>Todos los servicios</li>
+          <li>Acceso a API</li>
+        </ul>
+        <button class="btn btn-solid btn-block js-pack" data-pack="Enterprise" data-price="699" data-credits="2000">Comprar este bono</button>
+      </div>
+    </div>
+
+    <div id="checkout">
+      <div class="checkout-box">
+        <div class="checkout-summary" id="checkout-pack">—</div>
+        <form id="checkout-form">
+          <input type="hidden" id="checkout-price">
+          <input type="hidden" id="checkout-packname">
+          <div class="field-row">
+            <div class="field"><label for="co-nombre">Nombre</label><input type="text" id="co-nombre" required></div>
+            <div class="field"><label for="co-empresa">Empresa</label><input type="text" id="co-empresa" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="co-email">Email corporativo</label><input type="email" id="co-email" required></div>
+            <div class="field"><label for="co-nif">NIF / CIF</label><input type="text" id="co-nif" required></div>
+          </div>
+          <div class="field">
+            <label for="co-pago">Método de pago</label>
+            <select id="co-pago" required>
+              <option value="tarjeta">Tarjeta</option>
+              <option value="transferencia">Transferencia</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-solid btn-block">Confirmar compra</button>
+          <p class="legal-note">Esta es una compra de prueba dentro de una landing académica — no se procesa ningún pago real.</p>
+        </form>
+        <div class="confirm" id="confirm-purchase">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1F9D55" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <h3>Compra confirmada</h3>
+          <p>Tus créditos ya están disponibles en tu cuenta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contacto">
+  <div class="wrap demo-grid">
+    <div class="demo-copy">
+      <div class="kicker">¿Prefieres que te asesoremos?</div>
+      <h2>Cuéntanos qué necesitas</h2>
+      <p>Si no tienes claro qué bono o servicio se ajusta a tu caso, escríbenos y te ayudamos antes de que compres nada.</p>
+      <ul>
+        <li>Respuesta en menos de 24h laborables</li>
+        <li>Recomendación adaptada a tu volumen</li>
+        <li>Sin compromiso de compra</li>
+      </ul>
+    </div>
+
+    <div>
+      <form id="demo-form">
+        <div class="field-row">
+          <div class="field"><label for="nombre">Nombre</label><input type="text" id="nombre" name="nombre" required></div>
+          <div class="field"><label for="empresa">Empresa</label><input type="text" id="empresa" name="empresa" required></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="email">Email corporativo</label><input type="email" id="email" name="email" required></div>
+          <div class="field"><label for="telefono">Teléfono (opcional)</label><input type="tel" id="telefono" name="telefono"></div>
+        </div>
+        <div class="field">
+          <label for="servicio">Servicio de interés</label>
+          <select id="servicio" name="servicio" required>
+            <option value="">Selecciona una opción</option>
+            <option value="burofax">Burofax certificado</option>
+            <option value="email_certificado">Email certificado</option>
+            <option value="firma_electronica">Firma electrónica</option>
+            <option value="ekyc">Verificación eKYC</option>
+            <option value="no_seguro">No estoy seguro / quiero que me asesoren</option>
+          </select>
+        </div>
+        <div class="field"><label for="mensaje">Cuéntanos tu caso (opcional)</label><textarea id="mensaje" name="mensaje" style="min-height:80px;resize:vertical;"></textarea></div>
+        <button type="submit" class="btn btn-solid btn-block">Enviar solicitud</button>
+        <p class="legal-note">Al enviar este formulario aceptas que te contactemos para resolver tu consulta.</p>
+      </form>
+      <div class="confirm" id="confirm-lead">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1F9D55" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        <h3>Solicitud recibida</h3>
+        <p>Gracias — un especialista te contactará en menos de 24h laborables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Lleida.net — Comunicaciones digitales certificadas.</p>
+    <p class="disclaimer">Landing de prueba para un proyecto académico de medición digital (GA4). No es una página oficial de Lleida.net, los precios son ilustrativos y no recoge datos reales de clientes ni procesa pagos.</p>
+  </div>
+</footer>
+
+<!-- ====================================================================
+     EVENTOS PERSONALIZADOS — configurados a mano, sin Google Tag Manager
+     Dos funnels en paralelo:
+       A) Contacto/lead:  view_servicios → click_cta(contacto) → form_start → generate_lead
+       B) Compra directa: view_precios   → select_item        → begin_checkout → purchase
+     ==================================================================== -->
+<script>
+  // Clic en cualquier CTA (Contáctanos / Comprar / Empieza ahora / Solicita información)
+  document.querySelectorAll('.js-cta').forEach(function (el) {
+    el.addEventListener('click', function () {
+      gtag('event', 'click_cta', {
+        cta_type: el.dataset.type || 'desconocido',
+        cta_location: el.dataset.loc || 'desconocido'
+      });
+    });
+  });
+
+  // Vista de la sección de servicios (funnel de contacto)
+  new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { gtag('event', 'view_servicios'); obs.disconnect(); }
+    });
+  }, { threshold: 0.5 }).observe(document.getElementById('servicios'));
+
+  // Vista de la sección de precios (funnel de compra)
+  new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { gtag('event', 'view_precios'); obs.disconnect(); }
+    });
+  }, { threshold: 0.5 }).observe(document.getElementById('precios'));
+
+  // Selección de un bono de créditos -> select_item + begin_checkout
+  document.querySelectorAll('.js-pack').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pack = btn.dataset.pack, price = parseFloat(btn.dataset.price), credits = btn.dataset.credits;
+
+      gtag('event', 'select_item', {
+        item_list_name: 'bonos_creditos',
+        items: [{ item_name: pack, price: price }]
+      });
+
+      document.getElementById('checkout-pack').textContent = pack + ' — ' + credits + ' créditos — ' + price + ' €';
+      document.getElementById('checkout-price').value = price;
+      document.getElementById('checkout-packname').value = pack;
+      document.getElementById('checkout').style.display = 'block';
+      document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+
+      gtag('event', 'begin_checkout', {
+        currency: 'EUR', value: price,
+        items: [{ item_name: pack, price: price }]
+      });
+    });
+  });
+
+  // Confirmación de compra -> purchase (conversión del funnel B)
+  document.getElementById('checkout-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var price = parseFloat(document.getElementById('checkout-price').value);
+    var packName = document.getElementById('checkout-packname').value;
+    gtag('event', 'purchase', {
+      transaction_id: 'TEST-' + Date.now(),
+      currency: 'EUR',
+      value: price,
+      items: [{ item_name: packName, price: price, quantity: 1 }]
+    });
+    document.getElementById('checkout-form').style.display = 'none';
+    document.getElementById('confirm-purchase').style.display = 'block';
+  });
+
+  // Formulario de contacto: inicio -> form_start, envío -> generate_lead (conversión del funnel A)
+  var demoForm = document.getElementById('demo-form');
+  var formStarted = false;
+  demoForm.addEventListener('focusin', function () {
+    if (!formStarted) { gtag('event', 'form_start'); formStarted = true; }
+  });
+  demoForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    gtag('event', 'generate_lead', { servicio_interes: demoForm.servicio.value });
+    demoForm.style.display = 'none';
+    document.getElementById('confirm-lead').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
